@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" 
+    crossorigin="anonymous">
+</head>
+<body>
+    <div class="container m-auto mt-5 w-50">
+        <br>
+        <h5>Registrate</h5>
+        <br>
+        <form action="/client" method="POST">
+            <div class="form-group">
+                <label for="">Usuario</label>
+                <input type="text" class="form-control" placeholder="usuario" name="user" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="">Contraseña</label>
+                <input type="password" class="form-control" placeholder="contraseña" name="password" required>
+            </div>
+            <br>
+            <button class="btn btn-primary">Registrarse</button>
+        </form>
+        <br>
+    </div>
+    
+</body>
+</html>

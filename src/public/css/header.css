@@ -1,0 +1,19 @@
+header {
+  background-color: black;
+}
+
+header img {
+  width: 40px;
+  height: 40px;
+}
+header .options a {
+  color: #eac804;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.title-page {
+  background-color: #eac804;
+  font-weight: 600;
+}

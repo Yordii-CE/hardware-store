@@ -1,0 +1,21 @@
+<%- include('partials/_header_manage') %>
+
+<div class="container mt-5">
+    <ul class="list-group m-5 w-50 m-auto">    
+        <% data.forEach((sms)=>{ %>  
+            <li class="list-group-item d-flex flex-align-center justify-content-between
+            <%= (sms.isManage == 'no')?'':'disabled' %>">
+                <div class="d-flex flex-column">
+                    <small class="text-secondary"><%= sms.correo %></small>
+                    <span class="mx-5"><%= sms.message %></span>
+                </div>
+           
+                <a id="update" href="/updateMessage/<%= sms.id %>" 
+                    class="btn btn-sm <%= (sms.isManage == 'no')?'text-primary':'text-danger' %>">
+                   ready
+                </a>
+            </li>          
+          <% }); %>            
+    </ul>
+</div>
+<%- include('partials/_footer') %>

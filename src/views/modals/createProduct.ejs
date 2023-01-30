@@ -1,0 +1,115 @@
+ <div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <form id="form" class="modal-content">
+        <div class="modal-header d-flex justify-content-between">
+            <h5>Subir producto nuevo</h5>
+            <button type="button" id="btn-close" class="btn text-secondary" data-bs-dismiss="modal">X</button>          
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <p>Nombre</p>
+                <input type="text" name="name" class="form-control" placeholder="Nombre" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <p>Precio</p>
+                <input type="number" min="1" step="0.1" name="price" class="form-control" placeholder="Precio" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <p>Tipo</p>
+                <select class="form-select" name="type" required>
+                    <option value="tool">Herramienta</option>
+                    <option value="accesorie">Accesorio</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group d-flex flex-column">
+                <label id="foto" for="file" class="btn p-2 align-self-end text-primary upload-image border-dashed">      
+                    <p>Subir imagen</p>
+                </label>
+                <input id="file" accept="image/*" hidden type="file">
+            </div>
+            <br>           
+        </div>  
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary px-5 w-100">Subir</button>
+        </div>  
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let dataFile;
+    let file;
+    loadImg()
+    function loadImg() {
+        const $foto = document.getElementById("foto")
+        const $file = document.getElementById("file")
+        $file.addEventListener("change", (e) => {
+            if ($file.files.length == 0) return
+
+            file = $file.files[0]
+            dataFile = file;
+            let img = document.createElement("img")
+            img.file = file
+            img.style.objectFit = "cover"
+            img.style.width = "100%"
+            img.style.height = "100%"
+            var reader = new FileReader()
+            reader.addEventListener("load", (e) => {
+                img.src = e.target.result
+            })
+            reader.readAsDataURL(file)
+            $foto.innerHTML = ""
+            $foto.appendChild(img)
+        })
+    }
+
+    const $form = document.getElementById("form")
+    const $btnClose = document.getElementById("btn-close")
+    $form.addEventListener("submit", async e=>{
+        
+        e.preventDefault()
+        if (!file) {
+            await swal("Subir imagen", "", "error")
+            return
+        }
+        console.log("work");
+        let fData = new FormData()
+        fData.append("file", file)
+        let data = {
+            name : $form.name.value,
+            price : $form.price.value,
+            type : $form.type.value,
+            url :`${dataFile.name}` 
+        }
+        const URL = `/uploadProduct/${data.name}/${data.price}/${data.type}/${data.url}`
+        let res = await fetch(URL,{
+            method:"POST",          
+            body : fData
+        }), json = await res.json()
+
+        if(json.status == 200){
+            $btnClose.click() 
+            $form.reset()
+
+            Swal.fire({
+            position: 'center-center',
+            icon: 'success',
+            title: 'Producto subido',
+            showConfirmButton: false,
+            timer:1500
+       
+            }).then(res=>{
+                if(res.isDismissed){
+                    location.reload()    
+                }
+            })
+        }else{
+            alert("Error al subir producto" + json.err)
+        }        
+
+    })
+</script>
+

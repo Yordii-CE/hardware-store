@@ -1,0 +1,54 @@
+<%- include('partials/_header_client') %>
+    <div class="container accesories mt-5">
+      <div>        
+        <% data.forEach((accesorie)=>{ %>  
+          <figure data-bs-toggle="modal" data-bs-target="#buy">
+            <div class="bg-opacity"></div>
+            <img src="uploads/<%= accesorie.url %>" alt="">
+            <figcaption>
+              <%= accesorie.name %>
+            </figcaption>
+            <button class="btn-hidden">Comprar</button>
+            <p class="invisible"><%= accesorie.price %></p>                
+          </figure>  
+        <% }); %>  
+      </div>    
+    </div>   
+    <%- include('modals/buy') %>
+
+    <script>
+      const $figures = document.querySelectorAll("figure")
+      $figures.forEach(($figure)=>{
+        $figure.addEventListener("click",(e)=>{
+          let url = $figure.children[1].src
+          let name = $figure.children[2].textContent
+          let price = $figure.children[4].textContent
+          console.log(url, name, price);
+  
+  
+          const $url = document.getElementById("url")
+          const $name = document.getElementById("name")
+          const $price = document.getElementById("price")
+  
+          $url.src = url
+          $name.textContent = name
+          $price.textContent = `$.${price}`
+        })
+      })
+    
+      const $btnBuy = document.getElementById("btn-buy")
+      const $formBuy = document.getElementById("formBuy")
+      
+      $btnBuy.addEventListener("click", async(e)=>{
+
+        if($formBuy.name.value == "" && $formBuy.address.value == ""){
+          await swal("Completar datos", "", "error")
+          return
+        }else{
+          await swal("Pedido realizado (Accesorios)", "Un operador se encargara de realizarte la entrega!", "success")
+        }
+  
+      })
+    </script>
+<%- include('partials/_footer') %>
+ 

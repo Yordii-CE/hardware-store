@@ -1,0 +1,39 @@
+  <!-- Modal -->
+  <div class="modal fade" id="buy" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Detalle de producto</h5>    
+        </div>
+        <div class="modal-body">
+            <span id="price" class="my-4 bg-dark text-white p-1 rounded">$100.00</span>  
+            <div class="card" style="width: 18rem; margin: auto;">
+                <img id="url" class="card-img-top" src="" alt="Card image cap">
+                <div class="card-body">
+                  <h5 id="name" class="card-title">Martillo</h5>                  
+                </div>                
+            </div>            
+        </div>
+        <div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Datos de destinatario</h5>    
+            </div>
+            <form id="formBuy" class="modal-body">
+                <div class="form-group">
+                    <p>Nombre</p>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <p>Direccion de entrega</p>
+                    <input type="text" name="address" class="form-control" required>
+                </div>
+                <br>
+                <div class="modal-footer border-0">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button id="btn-buy" type="button" class="btn btn-primary" data-bs-dismiss="modal">Comprar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+  </div>

@@ -1,0 +1,49 @@
+<%- include('partials/_header') %>
+    <div class="container home">
+      <form id="form" class="rounded p-2 bg-white">
+        <div class="border-0 bg-transparent form-control">          
+          <input id="user" type="text" placeholder="Usuario" class="bg-transparent form-control" required>
+        </div>
+        <br>
+        <div class="border-0 form-control bg-transparent ">          
+          
+          <input id="pass" type="password" placeholder="Contraseña" class="bg-transparent form-control" required>
+        </div>
+        <br>
+        <button type="submit" class="btn d-block btn-warning m-auto">Iniciar sesión</button>
+        <br>        
+        <span class="text-center d-block">¿No tienes una cuenta?</span>
+        <br>
+        <a class="text-center d-block" href="/register">Registrate</a>
+      </form>
+    </div>
+
+    <script>
+      const $form = document.getElementById("form")
+
+      $form.addEventListener("submit", async (e)=>{
+        e.preventDefault()
+        const $user = document.getElementById("user").value
+        const $pass = document.getElementById("pass").value
+  
+        if ($user == 'admin' && $pass == '123') {
+          alert("Administrador")
+          location.href = "products"      
+          return
+        }
+
+        let res = await fetch(`/client/${$user}/${$pass}`),
+        json = await res.json()
+        console.log(json);
+        if (json.status == 200) {
+          alert("Usuario correcto!")
+          location.href = "tools"   
+          return
+        }
+
+         alert("Datos invalidos!") 
+        
+      })
+    </script>
+<%- include('partials/_footer') %>
+ 

@@ -1,0 +1,61 @@
+<%- include('partials/_header_client') %>
+    <div class="container contacts mt-5 w-50 m-auto">
+      <h5 class="text-secondary">CONTÁCTENOS</h5>
+      <br>
+      <form id="form">
+        <div class="form-group d-flex">
+          <p class="w-25">Tema</p>
+          <input type="text" name="topic" class="form-control" required>
+        </div>
+        <br>
+        <br>
+        <div class="form-group d-flex">
+          <p class="w-25">Correo</p>
+          <input type="email" name="correo" class="form-control"  placeholder="tu@gmail.com" required>
+        </div>
+        <br>
+        <br>
+        <div class="form-group d-flex">
+          <p class="w-25">Mensaje</p>
+          <textarea type="text" name="message" class="form-control" placeholder="¿Como le podemos ayudar?" required></textarea>
+        </div>
+        <br>        
+        <div class="d-flex align-items-end flex-column mt-4">
+          <button class="btn btn-secondary px-5">Enviar</button>
+        </div>
+      </form>
+    </div>
+
+  <script>
+
+    const $form = document.getElementById("form")
+    $form.addEventListener("submit",async (e)=>{
+        
+        e.preventDefault()
+        
+        let res  = await fetch("/sendMessage",{
+          method:"POST",    
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body:JSON.stringify({   
+            topic: $form.topic.value ,
+            message:$form.message.value,
+            correo:$form.correo.value ,
+            isManage:"no" ,
+          })
+        }),
+        json = await res.json()
+        if (json.status == 400) {
+          await swal("Mensaje enviado!", "", "error");
+        }else{
+          await swal("Mensaje enviado!", "", "success");
+        }
+          
+        
+
+    })    
+  </script>
+<%- include('partials/_footer') %>
+ 
+ 
